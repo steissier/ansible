@@ -1,0 +1,15 @@
+---
+all:
+  vars: 
+    ansible_user: ubuntu  
+prod:
+  vars:
+    ansible_password: Maranello01
+    env: prod
+  hosts:
+    client1:
+      ansible_host: 18.233.99.251
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    client2:
+      ansible_host: 35.174.114.214
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

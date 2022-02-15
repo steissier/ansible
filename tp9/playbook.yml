@@ -1,0 +1,28 @@
+- name: "Installation nginx"
+  hosts: prod
+  gather_facts: yes
+  become: yes
+  vars:
+    paquet: "Paquet"
+  tasks:
+    - name: "install nginx"
+      template:
+        src: "install_nginx.sh.j2"
+        dest: "/home/{{ ansible_user }}/install_nginx.sh"
+
+    - name: "Execution script"
+      command: "sh /home/{{ ansible_user }}/install_nginx.sh"
+- name: "Taches de purge"
+  hosts: client2
+  gather_facts: yes
+  become: yes
+  vars:
+    paquet: "Paquet"
+  tasks:
+    - name: "Purge nginx"
+      template:
+        src: "uninstall_nginx.sh.j2"
+        dest: "/home/{{ ansible_user }}/uninstall_nginx.sh"
+
+    - name: "Execution script purge"
+      command: "sh /home/{{ ansible_user }}/uninstall_nginx.sh"

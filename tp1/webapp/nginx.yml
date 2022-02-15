@@ -1,0 +1,15 @@
+- name: "Mon groupe de taches"
+  hosts: client
+  gather_facts: yes
+  tasks:
+    - name: "Install nginx"
+      apt: "name=nginx state=present update_cache=yes"
+      become: yes
+    - name: "Enable nginx"
+      service: "name=nginx state=started"
+      become: yes
+    - name: "Create index.html"
+      copy: "dest=/var/www/html/index.html content='Bonjour AJC'"
+      become: yes
+
+

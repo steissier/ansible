@@ -1,0 +1,17 @@
+#!/bin/bash
+
+{% if ansible_distribution  == "Ubuntu" %}
+
+systemctl stop {{ paquet }}
+apt-get purge --autoremove -y {{ paquet }}
+
+{% elif ansible_distribution == "CentOs" %}
+
+systemctl stop {{ paquet }}
+apt-get purge --autoremove -y {{ paquet }}
+
+{% else %}
+
+echo "Distribution inconnue"
+
+{% endif %}

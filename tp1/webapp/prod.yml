@@ -1,0 +1,7 @@
+all:
+  hosts:
+    client:
+      ansible_host: "18.233.99.251"
+      ansible_user: "ubuntu"
+      ansible_password: "Maranello01"
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"

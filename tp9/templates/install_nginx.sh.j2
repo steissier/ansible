@@ -1,0 +1,18 @@
+#!/bin/bash
+
+{% if ansible_distribution  == "Ubuntu" %}
+apt-get update -y
+apt-get install {{ paquet }} -y
+systemctl start {{ paquet }}
+
+{% elif ansible_distribution == "CentOs" %}
+
+yum update -y
+yum install {{ paquet }} -y
+systemctl start {{ paquet }}
+
+{% else %}
+
+echo "Distribution inconnue"
+
+{% endif %}
