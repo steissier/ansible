@@ -1,0 +1,8 @@
+- name: "Installation nginx & git"
+  hosts: prod
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: "Include"
+      include_tasks: "/home/ubuntu/ajc_ansible/tp13/install.yml"
+      when: ansible_distribution == "Ubuntu"

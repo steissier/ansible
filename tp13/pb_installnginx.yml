@@ -1,0 +1,20 @@
+- name: "Installation nginx & git"
+  hosts: prod
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: "install nginx Ubuntu"
+      apt:
+        name: ['nginx','git']
+        state: present
+      when:
+        ansible_distribution == "Ubuntu"
+    - name: "install nginx Centos"
+      yum:
+        name: '{{ item }}'
+        state: present
+      loop:
+        - nginx
+        - git
+      when:
+        ansible_distribution == "CentOs"

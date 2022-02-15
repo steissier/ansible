@@ -1,0 +1,5 @@
+
+- name: "install nginx Ubuntu"
+  apt:
+    name: ['nginx','git']
+    state: present
