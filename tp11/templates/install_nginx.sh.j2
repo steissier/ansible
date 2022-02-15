@@ -1,0 +1,20 @@
+#!/bin/bash
+
+{% if ansible_distribution  == "Ubuntu" %}
+apt-get update -y
+apt-get install {{ paquet }} -y
+systemctl start {{ paquet }}
+rm -rf /var/www/html/*
+
+{% elif ansible_distribution == "CentOs" %}
+
+yum update -y
+yum install {{ paquet }} -y
+systemctl start {{ paquet }}
+rm -rf /var/www/html/*
+
+{% else %}
+
+echo "Distribution inconnue"
+
+{% endif %}

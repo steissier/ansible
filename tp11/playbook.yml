@@ -1,0 +1,42 @@
+- name: "Renommage"
+  hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: "Renommage"
+      hostname:
+        name: "{{ inventory_hostname }}"
+
+- name: "Installation application"
+  hosts: prod
+  gather_facts: yes
+  become: yes
+  vars:
+    paquet: "nginx" 
+  tasks:
+    - name: "Purge nginx"
+      template:
+        src: "install_nginx.sh.j2"
+        dest: "/home/{{ ansible_user }}/install_nginx.sh"
+
+    - name:
+      file:
+        path: "/var/www/html/src"
+        state: directory
+    - name: "Recupération repo"
+      git: 
+        repo: "https://github.com/diranetafen/static-website-example.git"
+        force: yes    
+        dest: "/var/www/html/src"
+
+    - name: "Dynamisation de la page"
+      template:
+        src: "modif_html.sh.j2"
+        dest: "/var/www/html/src/index.html"
+
+    - name: "copy des sources"
+      copy:
+        remote_src: yes
+        src: "/var/www/html/src/"
+        dest: "/var/www/html/"
+
