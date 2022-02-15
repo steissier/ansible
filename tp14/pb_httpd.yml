@@ -1,0 +1,26 @@
+- name: "Conteneur"
+  hosts: prod
+  vars_files:
+    - secrets.yml
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: "Installation Git"
+      apt:
+        name: "git"
+        state: present
+
+    - name: "Recup fichier"
+      git:
+        repo: "https://github.com/diranetafen/static-website-example.git"
+        dest: "/home/ubuntu/dest/"
+
+    - name: "Deploiement contener"
+      docker_container: 
+        name: webapp
+        image: httpd
+        ports:
+          - "8080:80"
+        volumes: 
+          - /home/ubuntu/dest:/usr/local/apache2/htdocs
+

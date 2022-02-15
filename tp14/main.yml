@@ -1,0 +1,6 @@
+- name: "Installation Docker"
+  import_playbook: "pb_docker.yml"
+
+- name: "Déploiement"
+  import_playbook: "pb_httpd.yml"
+
